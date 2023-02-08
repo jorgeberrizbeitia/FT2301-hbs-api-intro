@@ -1,6 +1,24 @@
 <div>
 
-  <h4>Esta pagina es sobre nuestra escuela</h4>
+  {{!-- "this" en la base de hbs apunta al objeto que se pasa en el render --}}
+  <h4>Esta pagina es sobre nuestra escuela {{this.schoolName}}</h4>
   <h5>Conoceran las clases y al staff</h5>
+
+  <ul>
+    {{!-- {{this.staff}} --}}
+
+    {{!-- <li>{{this.staff.[0]}}</li>
+    <li>{{this.staff.[1]}}</li>
+    <li>{{this.staff.[2]}}</li> --}}
+
+    {{#each this.staff}}
+
+      {{!-- "this" en #each apunta a cada elemento del array --}}
+      <li>{{this}}</li>
+
+    {{/each}}
+
+
+  </ul>
 
 </div>

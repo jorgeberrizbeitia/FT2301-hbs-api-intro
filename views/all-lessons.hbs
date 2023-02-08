@@ -1,0 +1,26 @@
+<div>
+
+  <h4>Estas son todas las lecciones</h4>
+
+  {{!-- aqui irian las lecciones, si las tuviesemos --}}
+
+  {{#each this.allLessons}}
+
+    <div>
+      <h5>topic: {{this.topic}}</h5>
+      <p>descripción: {{this.description}}</p>
+      <p>bootcamp: {{this.bootcamp}}</p>
+      {{!-- <p>Aprobado: {{this.approved}}</p> --}}
+
+      condicionales en hbs solo verifican si el valor es true o false
+      {{#if this.approved}}
+        <p>Esta lección está aprobada ⭐</p>
+      {{else}}
+        <p>Esta lección no está aprobada 🟥</p>
+      {{/if}}
+
+    </div>
+
+  {{/each}}
+
+</div>

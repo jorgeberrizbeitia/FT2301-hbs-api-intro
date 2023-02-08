@@ -1,0 +1,13 @@
+<div>
+
+  <h3>Estas son solo las lecciones aprobadas</h3>
+
+  {{#each this.filteredLessons}}
+
+    <ul>
+      <li>{{this.topic}}. {{this.description}}</li>
+    </ul>
+
+  {{/each}}
+
+</div>

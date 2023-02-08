@@ -4,12 +4,17 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT;
 
+// requerir data
+const allLessons = require("./data/lessons.js")
+
 // configuracion del server
 app.set("view engine", "hbs");
 app.set("views", __dirname + "/views/") // esto dice que todas las vistas estan en la carpeta views
 
 app.get("/", (req, res) => {
   // res.send(`Hello World! Tu clave secreta es ${process.env.SECRET_MESSAGE}`)
+
+  // ... aqui eventualmente accederemos a las BD
 
   // enviarle la plantilla de home.hbs
 
@@ -19,8 +24,50 @@ app.get("/", (req, res) => {
 });
 
 app.get("/about", (req, res) => {
-  res.render("about.hbs");
+
+  res.render("about.hbs", {
+    schoolName: "Ironhack",
+    staff: ["Caro", "Adriá", "Ruth", "Jorge", "Leidy"]
+  });
 });
+
+// hacemos una ruta que muestre al usuario todas las lecciones y su info
+app.get("/lessons", (req, res) => {
+
+  // buscar la data
+  console.log(allLessons)
+
+  // renderizar una vista con la data
+  res.render("all-lessons.hbs", {
+    allLessons: allLessons
+  })
+
+})
+
+
+// ruta que muestre al usuario un listado con solo las rutas aprobadas
+app.get("/approved-lessons", (req, res) => {
+
+  // filtramos solo las lecciones aprobadas
+  const filteredLessons = allLessons.filter((eachLesson) => {
+    return eachLesson.approved === true
+  })
+
+  console.log(filteredLessons)
+
+  // luego las enviamos a el hbs
+  res.render("approved-lessons.hbs", {
+    filteredLessons: filteredLessons
+  })
+
+})
+
+// 1. creo la ruta
+// 2. creo el hbs con texto de prueba
+// 3. renderizo el hbs en la ruta y lo pruebo
+// 4. busco la data y la paso al render
+// 5. uso la data en el hbs para mostrarla
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
