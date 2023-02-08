@@ -70,6 +70,7 @@ app.get("/approved-lessons", (req, res) => {
 //   if (req.params.bootcamp !== "web") {
 //     // más adelante aprenderemos formas de enviar a paginas de error
 //   }
+// })
 
 
 app.get("/dog/random", (req, res) => {
@@ -89,11 +90,43 @@ app.get("/dog/random", (req, res) => {
   .catch((error) => {
     console.log(error)
   })
+})
+
+
+// vamos a crear una ruta que liste todas las razas de los perritos
+app.get("/dog/all-breeds", (req, res) => {
+
+  myDog.getListOfAllBreeds()
+  .then(data => {
+    // console.log(data)
+    const allBreeds = Object.keys(data.message)
+    console.log(allBreeds)
+
+    res.render("dog-breeds.hbs", {
+      allBreeds: allBreeds
+    })
+
+  })
+  .catch(err => console.error(err))
+
+})
+
+app.get("/dog/by-breed/:breed", async (req, res) => {
+
+  console.log(req.params.breed)
+
+  const response = await myDog.getAllDogsByBreed(req.params.breed)
+  console.log(response)
+
+
+  res.render("dogs-by-breed.hbs", {
+    dogsByBreed: response.message
+  })
 
 })
 
 
-// })
+
 
 // 1. creo la ruta
 // 2. creo el hbs con texto de prueba
