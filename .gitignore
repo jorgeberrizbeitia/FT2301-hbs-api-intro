@@ -1,0 +1,4 @@
+# .todos los archivos que esten listados, no se enviaran a github
+
+.env
+node_modules
