@@ -13,6 +13,12 @@ const myDog = new DogApi();
 // configuracion del server
 app.set("view engine", "hbs");
 app.set("views", __dirname + "/views/") // esto dice que todas las vistas estan en la carpeta views
+// vamos a habilitar partials en este hbs
+const hbs = require("hbs")
+hbs.registerPartials(__dirname + "/views/partials")
+
+
+
 
 app.get("/", (req, res) => {
   // res.send(`Hello World! Tu clave secreta es ${process.env.SECRET_MESSAGE}`)
