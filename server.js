@@ -6,6 +6,9 @@ const port = process.env.PORT;
 
 // requerir data
 const allLessons = require("./data/lessons.js")
+const DogApi = require('doggo-api-wrapper');
+const { response } = require("express");
+const myDog = new DogApi();
 
 // configuracion del server
 app.set("view engine", "hbs");
@@ -61,6 +64,36 @@ app.get("/approved-lessons", (req, res) => {
   })
 
 })
+
+// app.get("/lessons/:bootcamp", (req, res) => {
+//   console.log(req.params)
+//   if (req.params.bootcamp !== "web") {
+//     // más adelante aprenderemos formas de enviar a paginas de error
+//   }
+
+
+app.get("/dog/random", (req, res) => {
+
+  // let algunaVariable;
+
+  myDog.getARandomDog()
+  .then((response) => {
+    console.log(response)
+    // algunaVariable = response
+    res.render("random-dog.hbs", {
+      dogImg: response.message
+    })
+
+
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+
+})
+
+
+// })
 
 // 1. creo la ruta
 // 2. creo el hbs con texto de prueba
